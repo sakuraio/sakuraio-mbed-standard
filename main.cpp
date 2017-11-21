@@ -4,12 +4,25 @@
 Serial pc(USBTX, USBRX);
 DigitalOut myled(LED1);
 
+#if defined(TARGET_NUCLEO_F042K6) || defined(TARGET_NUCLEO_F303K8)
+// Nucleo-32 series
+SPI spi(A6, A5, A4); // mosi, miso, sclk
+DigitalOut cs(A3);
+I2C i2c(D4, D5);        // sda, scl
+#elif defined(TARGET_NUCLEO_F401RE) || defined(TARGET_NUCLEO_F411RE) || defined(TARGET_NUCLEO_F446RE) || defined(TARGET_NUCLEO_L476RG)
+// Nucleo-64 series
+SPI spi(D11, D12, D13); // mosi, miso, sclk
+DigitalOut cs(D10);
+I2C i2c(D14, D15);     // sda, scl
+#else
+// LPC1768 or others.
+SPI spi(p5, p6, p7); // mosi, miso, sclk
+DigitalOut cs(p8);
+I2C i2c(p9, p10);        // sda, scl
+#endif
+
 int main()
 {
-    SPI spi(p5, p6, p7); // mosi, miso, sclk
-    DigitalOut cs(p8);
-    I2C i2c(p9, p10);        // sda, scl
-
     //SakuraIO_SPI sakuraio( spi, cs );
     SakuraIO_I2C sakuraio(i2c);
 
