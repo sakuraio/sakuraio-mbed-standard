@@ -81,7 +81,7 @@ int main()
         uint8_t ret;
         ret = sakuraio.enqueueTx((uint8_t)0, (int32_t)counter);
         pc.printf("Enqueue ");
-        pc.printf("%s\r\n", response);
+        pc.printf("%d\r\n", ret);
 
         uint8_t avail;
         uint8_t queued;
