@@ -1,0 +1,7 @@
+version: '2'
+services:
+  mbed-cli:
+    container_name: mbed-cli
+    build: ./
+    volumes:
+      - ../:/target
